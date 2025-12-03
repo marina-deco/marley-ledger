@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-gold: #d4af37;
+  --color-pale-yellow: #f4e8a1;
+  --color-deep-purple: #3d2c3d;
+  --color-coral: #f08080;
+  --color-sage: #b8b894;
+  --color-brown: #7d5a3f;
+  --color-dark-green: #4a5244;
+  --color-pale-pink: #e8c5d4;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Orbit animations - required for ghost movement */
+@keyframes orbit {
+  from {
+    transform: rotate(var(--start-angle, 0deg)) translateX(var(--orbit-radius, 250px)) rotate(calc(-1 * var(--start-angle, 0deg)));
+  }
+  to {
+    transform: rotate(calc(var(--start-angle, 0deg) + 360deg)) translateX(var(--orbit-radius, 250px)) rotate(calc(-1 * var(--start-angle, 0deg) - 360deg));
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes orbitReverse {
+  from {
+    transform: rotate(var(--start-angle, 0deg)) translateX(var(--orbit-radius, 250px)) rotate(calc(-1 * var(--start-angle, 0deg)));
+  }
+  to {
+    transform: rotate(calc(var(--start-angle, 0deg) - 360deg)) translateX(var(--orbit-radius, 250px)) rotate(calc(-1 * var(--start-angle, 0deg) + 360deg));
+  }
+}
+
+/* Spirit float animation */
+@keyframes spiritFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-10px) rotate(10deg);
+    opacity: 1;
+  }
+}
+
+/* Chain animations */
+@keyframes chainFall {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translateY(50px);
+  }
+}
+
+/* Scale pan glow */
+@keyframes panGlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Judgment counter animation */
+@keyframes counterFly {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Screen darken effect */
+@keyframes darkenPulse {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.screen-darken::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  pointer-events: none;
+  animation: darkenPulse 0.4s ease-out;
+}
+
+/* Hide scrollbar for task modal */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
 }
