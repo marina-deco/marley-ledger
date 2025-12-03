@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
 import { getChainState, hasChains, hasBrokenChains } from './chains';
 import { taskArb, subtaskArb, createTask, createSubtask } from './test-utils';
-import type { Task, Subtask } from '../types';
+import type { Task } from '../types';
 
 describe('Chain Calculations', () => {
   /**

@@ -4,6 +4,7 @@
  */
 
 import type { PersistedState } from '../types';
+export type { PersistedState };
 
 const STORAGE_KEY = 'marleys-ledger-state';
 

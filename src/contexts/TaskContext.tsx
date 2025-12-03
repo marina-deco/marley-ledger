@@ -6,9 +6,10 @@ import {
   useState,
   useEffect,
   ReactNode,
+  useSyncExternalStore,
 } from 'react'
 import { Task, Subtask } from '@/types'
-import { saveState, loadState } from '@/lib/storage'
+import { saveState, loadState, PersistedState } from '@/lib/storage'
 import { isValidTaskTitle, isValidSubtaskTitle } from '@/lib/validation'
 
 interface TaskContextType {
@@ -25,18 +26,24 @@ interface TaskContextType {
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined)
 
-export function TaskProvider({ children }: { children: ReactNode }) {
-  const [tasks, setTasks] = useState<Task[]>([])
-  const [savedSouls, setSavedSouls] = useState(0)
-  const [lostSouls, setLostSouls] = useState(0)
+// External store for localStorage sync
+const defaultState: PersistedState = { tasks: [], savedSouls: 0, lostSouls: 0 }
+const getServerSnapshot = () => defaultState
+const getSnapshot = () => loadState()
+const subscribe = (callback: () => void) => {
+  window.addEventListener('storage', callback)
+  return () => window.removeEventListener('storage', callback)
+}
 
-  // Load state from localStorage on mount
-  useEffect(() => {
-    const state = loadState()
-    setTasks(state.tasks)
-    setSavedSouls(state.savedSouls)
-    setLostSouls(state.lostSouls)
-  }, [])
+export function TaskProvider({ children }: { children: ReactNode }) {
+  const initialState = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot
+  )
+  const [tasks, setTasks] = useState<Task[]>(initialState.tasks)
+  const [savedSouls, setSavedSouls] = useState(initialState.savedSouls)
+  const [lostSouls, setLostSouls] = useState(initialState.lostSouls)
 
   // Persist state to localStorage on change
   useEffect(() => {

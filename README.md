@@ -46,6 +46,39 @@ pnpm dev
 
 4. Open [http://localhost:3000](http://localhost:3000)
 
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import the project in [Vercel](https://vercel.com)
+3. Add the `OPENAI_API_KEY` environment variable in project settings
+4. Deploy
+
+### Other Platforms
+
+Build the production bundle:
+
+```bash
+pnpm build
+```
+
+Start the production server:
+
+```bash
+pnpm start
+```
+
+The app requires Node.js 18+ and the `OPENAI_API_KEY` environment variable for the Spirit Consultation feature.
+
+## Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm test` - Run tests
+
 ## Color Palette
 
 The app uses a distinctive palette: gold, pale yellow, deep purple, coral, sage, brown, dark green, and pale pink.

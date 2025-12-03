@@ -1,7 +1,12 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
+
+// Client-side mount detection without useEffect setState
+const emptySubscribe = () => () => {}
+const getSnapshot = () => true
+const getServerSnapshot = () => false
 
 interface LedgerVerdictProps {
   savedSouls: number
@@ -13,12 +18,12 @@ export default function LedgerVerdict({
   lostSouls,
 }: LedgerVerdictProps) {
   const [showModal, setShowModal] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    getSnapshot,
+    getServerSnapshot
+  )
   const total = savedSouls + lostSouls
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const verdict = useMemo(() => {
     if (total === 0) return null
