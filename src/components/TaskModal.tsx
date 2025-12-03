@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Task } from '@/types'
-import { useTasks } from '@/contexts/TaskContext'
+import { useTasks } from '@/stores/taskStore'
 
 interface TaskModalProps {
   task: Task

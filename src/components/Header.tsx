@@ -1,6 +1,6 @@
 'use client'
 
-import { useTasks } from '@/contexts/TaskContext'
+import { useTasks } from '@/stores/taskStore'
 import SoulScale from './SoulScale'
 import LedgerVerdict from './LedgerVerdict'
 

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Creepster, Julee } from 'next/font/google'
 import './globals.css'
-import { TaskProvider } from '@/contexts/TaskContext'
+import StoreHydration from '@/stores/StoreHydration'
 
 const creepster = Creepster({
   weight: '400',
@@ -29,7 +29,8 @@ export default function RootLayout({
       <body
         className={`${julee.className} ${creepster.variable} m-0 p-0 min-h-screen`}
       >
-        <TaskProvider>{children}</TaskProvider>
+        <StoreHydration />
+        {children}
       </body>
     </html>
   )

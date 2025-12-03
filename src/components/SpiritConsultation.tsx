@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useTasks } from '@/contexts/TaskContext'
+import { useTasks } from '@/stores/taskStore'
 
 interface Suggestion {
   id: string

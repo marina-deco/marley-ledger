@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useTasks } from '@/contexts/TaskContext'
+import { useTasks } from '@/stores/taskStore'
 
 export default function TaskInput() {
   const { addTask } = useTasks()

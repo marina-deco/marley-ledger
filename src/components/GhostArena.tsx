@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useTasks } from '@/contexts/TaskContext'
+import { useTasks } from '@/stores/taskStore'
 import Ghost from './Ghost'
 import TaskModal from './TaskModal'
 import { Task } from '@/types'
